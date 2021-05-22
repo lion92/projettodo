@@ -15,8 +15,35 @@
   </head>
 
   <body>
+    <form id="tache" method="POST" action="/todo">
+      <input id="nom" name="nom" type="text" />
+      <input name="description" id="description" />
+      <input
+        type="text"
+        name="idutilisateur"
+        id="idutilisateur"
+      />
+      <input type="submit" value="tache ajoutée" />
+    </form>
     <script>
       $(document).ready(function () {
+        $("#tache").submit(function (e) {
+          form = $(this);
+          var url = form.attr("action");
+          e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function (data) {
+             alert(JSON.stringify(data));
+              ///   alert(data); // show response from the php script.
+            },
+            error: function (data) {
+              alert(data.message);
+            },
+          });
+        });
         var myusername = $("#username").val();
         $.ajax({
           type: "GET",
@@ -40,5 +67,26 @@
       });
     </script>
     <div id="resultarea"></div>
+    <style>
+      #resultarea {
+        margin-top: 100px;
+        display: grid;
+        grid-template-rows: auto auto auto auto;
+      }
+      .nom {
+        grid-column-start: 3;
+
+        box-shadow: rgb(31, 14, 14) 2px 2px;
+        border: solid 2px red;
+        width: 200px;
+      }
+      .description {
+        grid-column-start: 3;
+
+        width: 400px;
+        border: solid 2px orange;
+        box-shadow: rosybrown 2px 2px;
+      }
+    </style>
   </body>
 </html>

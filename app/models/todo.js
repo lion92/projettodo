@@ -47,6 +47,26 @@ function Todo() {
       });
     });
   };
+  this.updatetache = function ( nom, description, utilisateur, idtache, res) {
+    connection.acquire(function (err, con) {
+      con.query("update tache set nom=?, description=?, date=?, utilisateur_idutilisateur=? where idtache=?",[nom, description, dateNow(),utilisateur, idtache] , function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header(
+          "Access-Control-Allow-Headers",
+          "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+        );
+
+        if (err) {
+          res.send({ status: 404, message: err});
+        } else {
+          res.send({ status: 200, message: result });
+          console.log("Post successful");
+        }
+      });
+    });
+  };
   this.getTodo = function ( idutilisateur, res) {
     connection.acquire(function (err, con) {
       con.query("select * from tache  where utilisateur_idutilisateur=? ", idutilisateur, function (err, result) {

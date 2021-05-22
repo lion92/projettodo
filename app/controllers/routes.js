@@ -10,5 +10,8 @@ module.exports = {
     app.get('/tache:idutilisateur',function(req,res) {
       todo.getTodo(req.params.idutilisateur,res);
     });
+    app.post('/updatetache',function(req,res) {
+      todo.updatetache(req.body.nom, req.body.description,req.body.idutilisateur,req.body.idtache,res);
+    });
   }
 };
