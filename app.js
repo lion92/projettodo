@@ -32,65 +32,11 @@ app.set('views', './views')
 app.set('view engine', 'ejs')
 
 app.get('', (req, res) => {
-    res.render('index', { text: 'This is EJS'})
+  res.render('todo')
 })
 
-app.get('/about', (req, res) => {
-    res.render('about', { text: 'About Page'})
-})
-app.get('/partie', (req, res) => {
-  res.render('partie')
-})
-app.get('/bateau', (req, res) => {
-  res.render('bateau')
-})
-app.get('/connexion', (req, res) => {
-  res.render('connexion')
-})
 
-app.get('/loginpage', (req, res) => {
-  res.render('login')
-})
 
-app.post('/upload', async (req, res) => {
-  try {
-    console.log(req);
-    
-      if(!req.files) {
-          res.send({
-              status: false,
-              message: 'No file uploaded'
-          });
-      } else {
-          let data = []; 
-  
-          //loop all files
-          _.forEach(_.keysIn(req.files.photos), (key) => {
-              let photo = req.files.photos[key];
-              
-              //move photo to uploads directory
-              photo.mv('./public/img' + photo.name);
-              
-              //push file details
-              data.push({
-                  name: photo.name,
-                  mimetype: photo.mimetype,
-                  size: photo.size
-              });
-          });
-  
-          //return response
-          res.send({
-              status: true,
-              message: 'Files are uploaded',
-              data: data
-          });
-      }
-  } catch (err) {
-      res.status(500).send(err);
-
-  }
-});
 
 connection.init();
 routes.configure(app);
