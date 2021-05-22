@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bataille navale</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <style>
+ 
+ select{
+   width:70px;
+   height: 60px;
+ }
+ 
+  
+  :root {
+    --hue:275deg; /* change hue of picture (320deg) */
+    --orangered:orangered;
+    --darkorange:darkorange;
+    --orange:orange;
+    --yellow:yellow;
+    --black:black;  
+  }
+  * {
+    box-sizing:border-box;
+  }
+  html {
+    background:#788;
+  }
+  
+  #canvas {
+    position:relative;
+    width:600px;
+    height:400px;
+    background:linear-gradient(to bottom, var(--darkorange) 25%, var(--yellow) 70%, var(--orange) 70%, var(--orangered));
+    filter:hue-rotate(var(--hue));
+    transform-origin:top center;
+    transform:scale(1.5);
+    margin:0 auto;
+    box-shadow:0 5px 10px rgba(0,0,0,.4);
+    border:20px solid white;
+  }
+  #canvas:before { /* texture-overlay */
+    content:'';
+    position:absolute;
+    left:-20px;
+    top:-20px;
+    width:inherit;
+    height:inherit;
+    border:20px solid white;
+    box-sizing:border-box;
+    background:radial-gradient(circle, rgba(60,60,60,1) 1px, transparent 1px);
+    background-size:3px 3px;
+    z-index:2;
+    mix-blend-mode:overlay;
+    opacity:.25;
+  }
+  #canvas:after { /* border-overlay */
+    content:'';
+    position:absolute;
+    left:-20px;
+    top:-20px;
+    width:inherit;
+    height:inherit;
+    border:20px solid beige;
+    box-sizing:border-box;  
+  }
+  
+  
+ 
+  
+  .boat {
+    width:80px;
+    height:10px;
+    background:var(--black);
+    z-index:1;
+    position:absolute;
+    top:67.5%;
+    left:75%;
+    border-radius:0 25% 50% 5px;
+  }
+  .boat:after {
+    content:'';
+    width:100%;
+    height:100px;
+    background:var(--black);
+    position:absolute;
+    bottom:100%;
+    left:0;
+    clip-path:polygon(33% 0%, 50% 80%, 66% 33%, 90% 100%, 50% 95%, 45% 100%, 50% 90%, 10% 95%, 0% 100%, 10% 90%)
+  }
+  .boat_reflection {
+    width:80px;
+    height:10px;
+    background:var(--black);
+    z-index:1;
+    position:absolute;
+    top:70.5%;
+    left:75.5%;
+    border-radius:0 25% 50% 5px;
+    transform:scaleY(-1) skewX(-20deg);
+    opacity:.25;
+    filter:blur(2px);
+  }
+  .boat_reflection:after {
+    content:'';
+    width:100%;
+    height:100px;
+    background:linear-gradient(to top, var(--black), transparent);
+    position:absolute;
+    bottom:100%;
+    left:0;
+    clip-path:polygon(33% 0%, 50% 80%, 66% 33%, 90% 100%, 50% 95%, 45% 100%, 50% 90%, 10% 95%, 0% 100%, 10% 90%)
+  }
+  
+  .ground {
+    width:60%;
+    height:125px;
+    background:var(--black);
+    position:absolute;
+    bottom:0;
+    left:0;
+    clip-path:polygon(0% 0%, 25% 10%, 80% 85%, 100% 100%, 0% 100%);
+  }
+  .tree {
+    width:150px;
+    height:200px;
+    position:absolute;
+    top:25%;
+    left:-10%;
+    border-radius:50%;
+    border-right:10px solid var(--black);
+    transform:rotate(0deg);
+  }
+  
+  .leaf {
+    width:65px;
+    height:25px;
+    background:var(--black);
+    position:absolute;  
+    border-radius:75% 25% 50% 0;
+    clip-path:polygon(0% 100%, 10% 100%, 15% 50%, 20% 100%, 30% 100%, 30% 70%, 40% 100%, 100% 100%, 100% 0%, 0% 0%);
+  }
+  
+  .leaf.one {
+    left:40px;
+  }
+  .leaf.two {
+    left:95px;
+    top:-20px;
+    transform:scaleX(-1) rotate(25deg);
+  }
+  .leaf.three {
+    left:100px;
+    top:15px;
+    transform:scaleX(-1) rotate(-25deg);
+  }
+  .leaf.four {
+    left:55px;
+    top:25px;
+    transform:rotate(-45deg);
+  }
+  
+  .tree_two {
+    width:150px;
+    height:200px;
+    position:absolute;
+    top:21%;
+    left:0%;
+    border-radius:50%;
+    border-right:10px solid var(--black);
+    transform:rotate(55deg);
+  }
+  
+  .bird {
+    width:15px;
+    height:10px;
+    border-top:2px solid var(--black);
+    border-radius:50% 50% 0 0;
+    position:absolute;
+  }
+  .bird:before {
+    content:'';
+    width:4px;
+    height:4px;
+    background:var(--black);
+    position:absolute;
+    left:12px;
+    top:1px;
+    border-radius:0 0 50% 50%;
+  }
+  .bird:after {
+    content:'';
+    width:15px;
+    height:10px;
+    border-top:2px solid var(--black);
+    border-radius:50% 50% 0 0;
+    position:absolute;
+    left:13px;
+    top:-2px;
+  }
+  
+  .bird.one {
+    top:20%;
+    left:35%;
+    transform:scale(1.25) rotate(-10deg);
+  }
+  .bird.two {
+    top:35%;
+    left:85%;
+    transform:scale(1) rotate(10deg);
+  }
+  .bird.three {
+    top:55%;
+    left:18%;
+    transform:scale(.75) rotate(-10deg);
+  }
+  .bird.four {
+    top:65%;
+    left:40%;
+    transform:scale(.5);
+  }
+  .bird.five {
+    top:60%;
+    left:60%;
+    transform:scale(.75) rotate(10deg);
+  }
+  .container {
+    display: flex;
+  align-items: stretch;
+  align-content: stretch;
+  }
+  </style>
+ 
+   
+  <div id="principal">
+    
+    <div  class="container" >
+       
+      <div>
+        <h1>bataille navale</h1></br></br>
+      <p id="qui" ></p>
+  
+     
+   
+      <a href="/loginpage">login</a></br></br>
+      <a href="/bateau">Bateau</a></br></br>
+      <a href="/partie">partie</a></br></br>
+     
+
+      <iframe id="transit" name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe></br></br>
+      <form name="tirer" id="joueuractu" action="/partieactu" method="Get">
+      <input id="partieencours" type="submit" value="partie">  
+      
+
+
+      </div><div> <div id="adversaire"></div>
+      </form></br></br>
+          <form id="tirdessus" method="POST" action="/insert/tir" target="hiddenFrame">
+            <label for="name"></label>
+          </br>
+          </br></br>
+            <select id="selectX" name="posX">
+            <nom>posX</nom>
+            <option valeur="0">0</option>
+            <option valeur="1">1</option>
+            <option valeur="2">2</option>
+            <option valeur="3">3</option>
+            <option valeur="4">4</option>
+          
+            
+            </select>
+         <select id="selectY" name="posY">
+         <nom>posY</nom>
+         <option valeur="0">0</option>
+         <option valeur="1">1</option>
+         <option valeur="2">2</option>
+         <option valeur="3">3</option>
+         <option valeur="4">4</option>
+         
+         </select>
+        </br>
+         <button id="feu" type="submit"> Feu<i style="color:red; width:50px" class="fas fa-meteor" onclick=" actutirs(), savoirsitirer()" ></i></button>
+        </a>
+        
+            
+          </form>    
+        </br>
+      </br>
+      </br>
+          
+          <form id="tirdelete" method="POST" action="/" target="hiddenFrame">
+            <label for="name"></label>
+            
+            <input onclick="tirdelete(), actutirs()" type="submit" value="effacer tous les tirs" />
+        </br>
+        </br>
+      </form>
+          <form id="effacerbateau" action="/effacerBateau" method="post" target="hiddenFrame">
+            <input type="submit" value="Enlever vos bateau" />
+        </form>
+      </div>
+        </div>
+        </div>
+  <div id='canvas'>
+    <div class='sun'></div>
+    <div class='boat'></div>
+    <div class='boat_reflection'></div>
+    <div class='ground'></div>
+    <div class='tree'>
+      <div class='leaf one'></div>
+      <div class='leaf two'></div>
+      <div class='leaf three'></div>
+      <div class='leaf four'></div>
+    </div>
+    <div class='tree_two'>
+      <div class='leaf one'></div>
+      <div class='leaf two'></div>
+      <div class='leaf three'></div>
+      <div class='leaf four'></div>
+    </div>
+    <div class='bird one'></div>
+    <div class='bird two'></div>
+    <div class='bird three'></div>
+    <div class='bird four'></div>
+    <div class='bird five'></div>
+  
+<table>
+  <tbody><tr>
+    <td id="td1">0</td>
+    <td id="td2">1</td>
+    <td id="td3">2</td>
+    <td id="td4">3</td>
+    <td id="td5">4</td>
+
+
+  </tr><tr>
+  </tr><tr id="0">
+    <td id="td00"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+      <td id="td01"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+        <td id="td02"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+          <td id="td03"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+            <td id="td04"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+              <td id="td05">0</td>
+  </tr>
+
+  <tr id="1">
+    <td id="td10"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+      <td id="td11"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+        <td id="td12"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+          <td id="td13"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+            <td id="td14"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+              <td id="td15">1</td>
+  </tr>
+  <tr id="2">
+    <td id="td20"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+      <td id="td21"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+        <td id="td22"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+          <td id="td23"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+            <td id="td24"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+              <td id="td25">2</td>
+  </tr>
+      <tr id="3">
+    <td id="td30"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+      <td id="td31"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+        <td id="td32"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+          <td id="td33"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+            <td id="td34"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+              <td id="td35">3</td>
+  </tr>
+  <tr id="4">
+    <td id="td40"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+      <td id="td41"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+        <td id="td42"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+          <td id="td43"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+            <td id="td44"><img id="img" +i+j="" src="https://krissclotilde.com/wp-content/uploads/2019/05/sea.png"></td>
+              <td id="td45">4</td>
+  </tr>
+
+</tbody>
+</table>
+</div>
+
+
+
+</tbody>
+
+
+
+
+    <script>
+    function savoirsitirer(){
+      $("#feu").hide();
+      console.log($('#quiadversaire option:selected').val());
+      if($('#quiadversaire option:selected').val()=="XXXT11"){
+        $("#feu").show();
+        $("#joueuractu").submit
+
+      }
+      else if($('#quiadversaire option:selected').val()=="XXXT20"){
+        $("#feu").show();
+        $("#joueuractu").submit
+
+      }
+      else{
+        
+        $("#feu").hide();
+        $("#joueuractu").submit
+      }
+    }
+      function tirdessus() {
+        
+        document.getElementById("tirdessus").action = "/insert/tir" ;
+      }
+      function tirdelete() {
+        
+        document.getElementById("tirdelete").action = "/deletetir" ;
+        $('td, tr').css("background-color, initial");
+
+
+      }
+    </script>
+    
+   
+    <!--
+      <form id="partie" method="POST" action="/insert/partie">
+        <label>Inserer ue partie joueur2</label>
+        <input id="j2" name="joueur2" type="text">
+        <label>tourj1</label>
+        <input  name="tourj1" type="text">
+          <input type="submit" value="valider tour">
+        </form>
+        -->
+     
+
+ 
+       
+        <form id="updatej2" method="POST" action="/updatej2">
+          <p >Changer de tour si vous êtes joueur2</p>
+          <label>tourj1</label>
+          <input id="tourj2" name="tourj1" type="text">
+          <label>joueur1</label> 
+          <input id="joue1" name="joueur2" type="text">
+          
+            <input type="submit" value="valider tour">
+          </form>
+        <form id="updatej1"method="POST" action="/updatej1">
+          <p>Changer de tour si vous êtes joueur1</p>
+          <label>tourj1</label>
+        <input id="tourj1" name="tourj1" type="text">
+        <label>joueur2</label>
+        <input id="joue2" name="joueur1" type="text">
+          <input type="submit" value="valider tour">
+        </form>
+        <!--
+        <form id="joueur" action="/joueur" method="Get">
+        <input type="submit" value="joueur avec bateau">  
+        </form>
+       
+          <form id="tour" action="/tour" method="GET">
+            <input type="submit" value="tour">
+          </form>
+
+
+        </form>
+       -->
+     
+  
+    
+
+  <!--
+<form id="email" method="Get" action="/email" target="hiddenFrame">
+         
+        
+        <input onclick="tirdelete(), actutirs()" type="submit" value="joueur inscrit" />
+       
+      </form> 
+      <p id="emailAff"></p>
+
+    -->
+    <script>$("#touche").hide()</script>
+
+      <form id="touche" method="POST" action="/touche" target="hiddenFrame">
+        
+        <label >posX</label>
+        <input id="iciX"type="text" name="posX">
+        <label>posY</label>
+        <input id="iciY"type="text" name="posY">
+        <input type="submit" value="touche">
+        
+      
+      </form>
+
+    
+   
+     
+
+
+
+
+
+      
+  
+
+
+      
+
+     
+       <!--
+         <label>InputX</label>
+        <input id='inputX' type="text"  />
+        <label>InputY</label>
+        <input id='inputY' type="text" />
+        <button onclick="poserbateau()">poser bateau</button>
+     
+
+        
+
+      </form>
+   
+      <form id="positionbateau" method="post" action="/insert/bateau" target="hiddenFrame">
+        <label>nom</label>
+        <input type=text name="nom"> </input>
+        <label>bateauX</label>
+        <input type="text" name="bateauX"></input>
+        <label>bateauY</label>
+        <input type="text" name="bateauY"> </input>
+    
+        <input onclick=" actutirs()" type="submit" value="poser bateau" />
+        </form>
+       <h2>email personne inscrite et ayant des tirs</h2>
+      <input id="reqmail" type="text">
+      <button onclick="actutirsparemail()">Les tirs du joueur designer</button>
+
+     
+     
+
+      <form id="deleteparemail" method="post" action="deletetir/:email" target="hiddenFrame">
+        
+        
+        <input onclick=" actutirs()" type="submit" value="deletetir par email" />
+
+      </form>
+         -->
+</div>
+
+</body>
+
+
+
+
+  
+    <script>
+
+
+
+function poserbateau() {
+var positionX=Number($('#inputX').val());
+  var positionY=Number($('#inputY').val());
+  console.log("OOOO"+positionX);  
+      
+  $('td').mouseover(function() {
+   
+ 
+   
+});
+var posX;
+   var posY;
+   var hoverY;
+   var hoverX;
+  
+    $( 'td' ).hover(
+
+
+    function() {
+    
+      posX=  Number(this.id.replace('td', '').substr(0, 1));
+    posY=Number(this.id.replace('td', '').substr(1, 2));
+    hoverX=posX+positionX;
+     hoverY=posY+positionY;
+    console.log('X :'+posX+'Y :'+posY);
+    console.log( '#'+posX+posY);
+   // $(  this).css( "background-color", "green" );
+ 
+   $(this).css( "background-color", "green" );
+    $('#td'+hoverX+hoverY).css( "background-color", "green" );
+ //  $('#td'+(hoverX-1)+(hoverY-1)).css( "background-color", "green" );
+      
+    
+  },
+  
+  function() {
+    //$(  this).css( "background-color", "cyan" );
+    //$('#td'+hoverX+hoverY).css( "background-color", "cyan" );
+   
+    $(this).css( "background-color", "cyan" );
+    $('#td'+hoverX+hoverY).css( "background-color", "cyan" );
+   
+   // $('#td'+(hoverX-1)+(hoverY-1)).css( "background-color", "cyan" );
+      }
+    
+  
+);
+        
+    }
+
+
+      function actu() {
+        $("#insert").empty();
+        $.getJSON('/todo', function (data) {
+          console.log(data);
+          for (var i = 0; i < data.length; i++) {
+
+            $("#insert").append("id :  " + data[i].id + " " + data[i].name + "                 " + "   <br>                      date :  " + data[i].date + " " + "<br>");
+          };
+
+
+
+
+
+
+        });
+
+      }
+      function quiestu() {
+        $("#qui").empty();
+        $.getJSON('/qui', function (data) {
+          console.log(data);
+          
+          $("#qui").append(JSON.stringify(data.message));
+
+
+        });
+
+      }
+
+      function actutirs() {
+    
+        $.getJSON('/tirs', function (data) {
+          for (var i = 0; i < data.length; i++) {
+          console.log(""+data[i].placeX+data[i].placeY);
+
+          $("#td"+data[i].placeX+data[i].placeY).css("background-color", "red");
+          }
+          $("#joueuractu").submit()
+
+
+
+
+
+        });
+
+      }
+      function actumesbateau() {
+    
+    $.getJSON('/mesbateau', function (data) {
+      console.log("/////////////////"+JSON.stringify(data));
+      for (var i = 0; i < data.message.length; i++) {
+      console.log("!!!!!!!!!!!"+data.message);
+
+      $("#td"+data.message[i].bateauX+data.message[i].bateauY).css("background-color", "green");
+      }
+      
+
+
+
+
+
+    });
+
+  }
+      function actutirsparemail() {
+    
+        var reqemail="/tirs/"+$("#reqmail").val();
+    $.getJSON(reqemail, function (data) {
+      for (var i = 0; i < data.length; i++) {
+      console.log(""+data[i].placeX+data[i].placeY);
+
+      $("#td"+data[i].placeX+data[i].placeY).css("background-color", "blue");
+      }
+
+
+
+
+
+    });
+
+  }
+
+      function actubateau() {
+        
+        $.getJSON('/bateau', function (data) {
+          for (var i = 0; i < data.length; i++) {
+            console.log(""+data[i].placeX+data[i].placeY);
+
+$("#td"+data[i].placeX+data[i].placeY).empty();
+          }
+
+
+
+
+
+        });
+
+      }
+      setInterval(function(){ savoirsitirer();
+          actumesbateau();
+        actutirs(); }, 2000);
+        setInterval(function(){ $("#joueuractu").submit()}, 2000);
+        
+      $(document).ready(function () {
+      $("#cont2").hide();
+        $("#feu").hide();
+        quiestu();
+        actu(); 
+        actubateau();
+        actutirs();
+       
+        $("#tacheCree").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+        actu();
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+
+$("#delete").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+        actu();
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+$("#joueur").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "Get",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+        actu();
+        console.log(JSON.stringify(data.message));
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+$("#tour").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "Get",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+         
+        actu();
+        var qui=data.message;
+
+        for(var i=0; i<qui.length;i++){
+          console.log(qui[i].joueur1);
+          console.log(qui[i].joueur2);
+
+        }
+        console.log(JSON.stringify(data.message));
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+
+$("#updatej1").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+        actu();
+        console.log(data.message);
+        $("#joueuractu").submit();
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+
+var actualiser="";
+$("#joueuractu").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "GET",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {if(actualiser!=JSON.stringify(data.message)){
+        actualiser=JSON.stringify(data.message);
+       //alert("C'est peut être votre tour :"+JSON.stringify(data.message));
+         
+        var quiestu1=$("#qui").html();
+         if(quiestu1!=='Qui êtes vous?, Veuillez-vous connecter.'){
+
+         
+        var quiestu=$("#qui").html().split("Vous êtes ")[1].replace('"',"");
+      
+      console.log(quiestu);
+      console.log(data.message);
+      console.log(data.message);
+      var generate="";
+      $("#adversaire").empty();
+      generate+="<select onclick='savoirsitirer()'  id='quiadversaire'><nom>Adversaire</nom>)";
+
+      for(var i=0; i<data.message.length;i++){
+        if(quiestu==data.message[i].joueur1){
+          
+          console.log("vous êtes joueur1 contre"+data.message[i].joueur2);
+          
+          if(data.message[i].tourj1==1){
+            alert("C'est votre tour contre :"+data.message[i].joueur2)
+            generate+="  <option value=XXXT1"+data.message[i].tourj1+">"+data.message[i].joueur2+"</option>    ";
+
+    
+        
+          }
+         else if(data.message[i].tourj1==0){
+            console.log("C'est le tour de :"+data.message[i].joueur2)
+          generate+="  <option value=XXXT1"+data.message[i].tourj1+">"+data.message[i].joueur2+"</option>    ";
+          }
+       
+        }
+       else if(quiestu==data.message[i].joueur2){
+        console.log("vous êtes joueur2 contre"+data.message[i].joueu1);
+        if(data.message[i].tourj1==0){
+            alert("C'est votre tour contre :"+data.message[i].joueur1)
+           generate+="  <option value=XXXT2"+data.message[i].tourj1+">"+data.message[i].joueur1+"</option>    ";
+          }
+          else if(data.message[i].tourj1==1){
+            console.log("C'est le tour de :"+data.message[i].joueur1)
+           generate+= "  <option value=XXXT2"+data.message[i].tourj1+">"+data.message[i].joueur1+"</option>    ";
+          }
+          
+        }
+        console.log(generate);
+        $("#adversaire").empty().append(generate);
+      }
+       
+        actu();
+        console.log(JSON.stringify(data.message));
+        ///   console.log(data); // show response from the php script.
+         } else {console.log("Veuillez vous connecter.")}}},
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+$("#updatej2").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+        console.log(data.message);
+        actu();
+        $("#joueuractu").submit();
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+$("#partie").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       { 
+        console.log(JSON.stringify(data.message));
+        actu();
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+
+
+
+
+$("#positionbateau").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+        actu();
+        console.log(data.message)
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+$("#deleteparemail").submit(function(e) {
+  var form = $(this);
+var url = 'deletetir/'+$("#reqmail").val();
+e.preventDefault();
+if($("#reqmail").val()==""||$("#reqmail").val()===undefined){
+console.log("email vide");
+}else{
+ // avoid to execute the actual submit of the form.
+
+
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+
+        actu();
+        document.location.href="/"
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+    }
+
+});
+$("#email").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "GET",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {$("#emailAff").empty();
+         for(let i=0;i<data.length;i++){
+         console.log(data[i].email);
+         $("#emailAff").append(""+data[i].email +"<br>")
+         }
+
+
+
+
+        actu();
+        ///   console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log("error");
+       }
+     });
+
+
+});
+$("#tirdessus").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+        console.log(data.message);
+        actutirs();
+        
+        $("#iciX").val($("#selectX").val());
+
+        $("#iciY").val($("#selectY").val());
+        $("#touche").submit();
+        
+        
+      
+       $("#joue1").val($('#quiadversaire option:selected').text());
+       $("#joue2").val($('#quiadversaire option:selected').text());
+       $("#tourj1").val(0);
+       $("#tourj2").val(1);
+       $("#updatej1").submit();
+       $("#updatej2").submit();
+        $("#joueuractu").submit();
+        $("#feu").hide();
+           ///console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         console.log(data.message);
+       }
+     });
+
+
+});
+
+
+
+$("#touche").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+         //console.log(data.message);
+        alert(data.message);
+        actutirs();
+           ///console.log(data); // show response from the php script.
+       },
+       error:function(data){
+         alert(data.message);
+       }
+     });
+
+
+});
+
+$("#tirdelete").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+        location.assign(location.href);
+        actutirs();
+           ///console.log(data); // show response from the php script.
+       }
+     });
+
+
+});
+$("#effacerbateau").submit( function(){
+  document.location.href="/";
+});
+$("#joueuractu").submit();
+     
+$("#updatej1").hide();
+       $("#updatej2").hide();
+       $("#partieencours").hide();
+
+});
+    </script>
+ 
+
+
+
+</html>
