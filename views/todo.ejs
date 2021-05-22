@@ -2,6 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css">
     <title>todo</title>
     <script
       type="text/javascript"
@@ -16,18 +17,38 @@
 
   <body>
     <form id="tache" method="POST" action="/todo">
-      <input id="nom" name="nom" type="text" />
-      <input name="description" id="description" />
-      <input
-        type="text"
-        name="idutilisateur"
-        id="idutilisateur"
-      />
+      <input placeholder="nom de la tache" id="nom1" name="nom" type="text" />
+      <input type="text" placeholder= "description" description" id="description1" />
+      <input type="text" placeholder="utilisateur" name="idutilisateur"id="idutilisateur1"/>
       <input type="submit" value="tache ajoutée" />
     </form>
-    <script>
+    <form id="updatetache" method="POST" action="/updatetache">
+      <input placeholder="nom de la tache" id="nom" name="nom" type="text" />
+      <input placeholder= "description" type="text" name="description" id="description" />
+      <input placeholder="utilisateur" type="text" name="idutilisateur"id="idutilisateur"/>
+      <input   placeholder="id de la tache" type="text" name="idtache"id="idtache"  />
+      <input type="submit" value="modifier tache" />
+    </form>
+    <script>idtache=(e)=>($("#idtache").val(e.children[1].innerHTML),$("#nom").val(e.children[2].innerHTML),$("#description").val(e.children[3].innerHTML));
       $(document).ready(function () {
         $("#tache").submit(function (e) {
+          form = $(this);
+          var url = form.attr("action");
+          e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function (data) {
+             alert(JSON.stringify(data));
+              ///   alert(data); // show response from the php script.
+            },
+            error: function (data) {
+              alert(data.message);
+            },
+          });
+        });
+        $("#updatetache").submit(function (e) {
           form = $(this);
           var url = form.attr("action");
           e.preventDefault();
@@ -53,18 +74,30 @@
           success: function (data) {
             data.message.forEach((element) =>
               $("#resultarea").append(
-                "<div class='nom' onclick='tacheaffnom(this)'>" +
+                "<div class=datetache onclick=idtache(this)>"+
+                   "<div class='tachedate' '>" +
+                  JSON.stringify(element.date) +
+                  "</div>" +
+              
+                   "<div class='tachesonid' '>" +
+                  JSON.stringify(element.idtache) +
+                  "</div>" +
+                "<div class='nom' >" +
                   JSON.stringify(element.nom) +
                   "</div>" +
-                  "<div class='description' onclick='tacheaff(this)'>" +
+                  "<div class='description' '>" +
                   JSON.stringify(element.description) +
                   "</div>"
+                  +"</div>"
               )
             );
             // $("#resultarea").text(JSON.stringify(data));
           },
         });
-      });
+       
+       
+      }); 
+      
     </script>
     <div id="resultarea"></div>
     <style>
@@ -73,20 +106,17 @@
         display: grid;
         grid-template-rows: auto auto auto auto;
       }
-      .nom {
-        grid-column-start: 3;
-
-        box-shadow: rgb(31, 14, 14) 2px 2px;
-        border: solid 2px red;
-        width: 200px;
-      }
-      .description {
-        grid-column-start: 3;
-
-        width: 400px;
-        border: solid 2px orange;
+      
+      .datetache,.tachesonid,.nom, .description {
+        width: 300px;
+        grid-column-start: 1;
+        border: solid 2px blue;
         box-shadow: rosybrown 2px 2px;
       }
+      .tachesonid,.nom, .description{
+        width: 150px;
+      }
+      input{width: 300px;}
     </style>
   </body>
 </html>
