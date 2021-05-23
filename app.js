@@ -35,6 +35,12 @@ app.get('', (req, res) => {
   res.render('todo')
 })
 
+app.get('/connexion', (req, res) => {
+  res.render('connexion')
+})
+app.get('/loginpage', (req, res) => {
+  res.render('login')
+})
 
 
 
