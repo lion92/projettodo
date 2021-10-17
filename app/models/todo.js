@@ -171,6 +171,8 @@ function Todo() {
       });
     });
   };
+
+ 
   this.reqdeconnexion = function (req, res) {
     res.clearCookie("essai2");
     res.send({ status: 200, message: "deconnexion" });
@@ -209,6 +211,33 @@ function Todo() {
       con.query(
         "insert into tache (nom, description, date, utilisateur_idutilisateur) values (?,?,?,?) ",
         [nom, description, dateNow(), utilisateur],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+          );
+          res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+          );
+
+          if (err) {
+            res.send({ status: 404, message: err });
+          } else {
+            res.send({ status: 200, message: result });
+            console.log("Post successful");
+          }
+        }
+      );
+    });
+  };
+  this.deletetache = function (id,req, res) {
+    connection.acquire(function (err, con) {
+      con.query(
+        "delete from tache where idtache=?",id
+        ,
         function (err, result) {
           con.release();
           res.header("Access-Control-Allow-Origin", "*");

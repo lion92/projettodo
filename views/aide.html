@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <title>Document</title>
+</head>
+
+
+<body>
+    <button onclick="ExportPdf()">generer</button>
+    <div class="wrapper" id="myCanvas">
+        <div class="wx-holder">
+          <div class="first-block wx-clearafter">
+            <div class="wx-right">
+              <div class="text-left bluecolor-text">
+                <h1 class="my-semibold" style="font-size: 26px;">Lorem Ipsum</h1>
+               
+                <p class="bold-text my-semibold">Lorem Ipsum</p>
+              </div>
+            </div>
+          </div><!-- end wx-clearafter -->
+          
+          
+          <div>
+            <div class="">
+               <h2 class="my-medium">What is Lorem Ipsum?
+              </h2>
+            </div>
+            
+      <div class="wx-holder">
+      <p class="p-class">Lorem Ipsum est simplement un faux texte de l'industrie de l'impression et de la composition. Lorem Ipsum est le texte fictif standard de l'industrie depuis les années 1500, lorsqu'un imprimeur inconnu a pris une galère de caractères et l'a brouillée pour en faire un livre spécimen. Elle a survécu non seulement à cinq siècles, mais aussi au saut dans la composition électronique, demeurant essentiellement inchangée. Il a été popularisé dans les années 1960 avec la sortie de feuilles Letraset contenant des passages de Lorem Ipsum, et plus récemment avec des logiciels de publication assistée par ordinateur comme Aldus PageMaker incluant des versions de Lorem Ipsum.</P>
+          </div>
+      
+      <div class="">
+               <h2 class="my-medium">Why do we use it?
+                </h2>
+          </div>
+          
+      <div class="wx-holder">
+      <p class="p-class">Il est établi depuis longtemps qu'un lecteur sera distrait par le contenu lisible d'une page lorsqu'il regarde sa présentation. L'intérêt d'utiliser Lorem Ipsum est qu'il a une distribution plus ou moins normale des lettres, par opposition à l'utilisation de "Content here, content here", ce qui le fait ressembler à un anglais lisible. De nombreux logiciels d'éditique et éditeurs de pages Web utilisent maintenant Lorem Ipsum comme modèle de texte par défaut, et une recherche pour'lorem ipsum' permettra de découvrir de nombreux sites Web encore à leurs débuts. Diverses versions ont évolué au fil des ans, parfois par accident, parfois délibérément (humour injecté, etc.).
+      </p>
+          </div>
+      
+          </div>
+          <div>
+             <div class="">
+               <h2 class="my-medium">Why do we use it?</h2>
+            </div>
+            <div class="wx-holder">
+      <p class="p-class">Il est établi depuis longtemps qu'un lecteur sera distrait par le contenu lisible d'une page lorsqu'il regarde sa présentation. L'intérêt d'utiliser Lorem Ipsum est qu'il a une distribution plus ou moins normale des lettres, par opposition à l'utilisation de "Content here, content here", ce qui le fait ressembler à un anglais lisible. De nombreux logiciels d'éditique et éditeurs de pages Web utilisent maintenant Lorem Ipsum comme modèle de texte par défaut, et une recherche pour'lorem ipsum' permettra de découvrir de nombreux sites Web encore à leurs débuts. Diverses versions ont évolué au fil des ans, parfois par accident, parfois délibérément (humour injecté, etc.).
+       </p>
+            </div>
+            
+            <span class="prevent-split">
+           <div class="prevent-split">
+               <h2 class="my-medium"> Where does it come from?</h2>
+            </div>
+            <div class="wx-holder">
+      <p class="p-class">
+      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+       </p>
+            </div>
+            </span>
+            
+            
+          </div>
+          <div class="wx-clearafter">
+            <div class="wx-leftmain orborder-right">
+              <font class="page-break" size=1pt face="arial" color=#FF2400>1 point arial type text</font><br>
+             <font class="page-break" size=2pt face="arial" color=#FF2400>2 point arial type text</font><br>
+            <font class="page-break" size=3pt face="arial" color=#FF2400>3 point arial type text</font><br>
+            <font class="page-break" size=4pt face="arial" color=#FF2400>4 point arial type text</font><br>
+            <font class="page-break" size=5pt face="arial" color=#FF2400>5 point arial type text</font><br>
+            <font class="page-break" size=6pt face="arial" color=#FF2400>6 point arial type text</font><br>
+            <font class="page-break" size=7pt face="arial" color=#FF2400>7 point arial type text</font> 
+            </div> 
+          </div> 
+        </div>
+      </div>   
+</body>
+<script>
+    function ExportPdf(){ 
+kendo.drawin.drawDOM("#myCanvas",
+   { 
+       paperSize: "A4",
+       margin: { top: "1cm", bottom: "1cm" },
+       scale: 0.8,
+       height: 500
+   })
+       .then(function(group){
+       kendo.drawing.pdf.saveAs(group, "Exported.pdf")
+   });
+}
+</script>
+</html>

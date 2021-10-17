@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src=script.js></script>
+</head>
+<script>
+function download(){
+    const element=document.getElementById('invoice');
+    const options = {
+        type: 'dataURL',
+        backgroundColor: 'red',
+        allowTaint: true,
+        width: '256px',
+        height: '512px',
+        imageTimeout: 0,
+        useCORS: true
+
+      }
+      html2pdf().set(options).from(element).save();
+}
+
+</script>
+<body>
+    <div id="invoice">
+        <img style="width: 10px; height: 10px;"src="./media/Kriss.png"/>
+        <div class="container" style="margin:0 3px; width: 200px;">
+        <h1 style="margin:10px">CLOTILDE Kriss</h1>
+        <h2 style="margin:10px">https://krissclotilde.com</h2>
+        
+       
+
+    </div>
+    </div>
+    <button onclick="download()" >dowload</button>
+</body>
+</html>
