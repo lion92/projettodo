@@ -314,6 +314,34 @@ function Todo() {
       );
     });
   };
+
+  this.getTodoparuser = function (email, res) {
+    connection.acquire(function (err, con) {
+      con.query(
+        "SELECT * FROM `tache` inner join utilisateur on utilisateur.idutilisateur=tache.utilisateur_idutilisateur where email=?",
+        email,
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+          );
+          res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+          );
+
+          if (err) {
+            res.send({ status: 404, message: err });
+          } else {
+            res.send({ status: 200, message: result });
+            console.log("Post successful");
+          }
+        }
+      );
+    });
+  };
 }
 
 module.exports = new Todo();
