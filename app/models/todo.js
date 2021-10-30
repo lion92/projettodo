@@ -204,7 +204,36 @@ function Todo() {
       }
     );
     };
+    this.delete = function (idtache, req, res) {
+      
+      connection.acquire(function (err, con) {
+        con.query(
+          "DELETE FROM `tache` WHERE `idtache`=?",
+          [idtache],
+          function (err, result) {
+            con.release();
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header(
+              "Access-Control-Allow-Methods",
+              "GET,HEAD,OPTIONS,POST,PUT"
+            );
+            res.header(
+              "Access-Control-Allow-Headers",
+              "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+            );
+  
+            if (err) {
+              res.send({ status: 404, message: err });
+            } else {
+              res.send({ status: 200, message: result });
+              console.log("Post successful");
+            }
+          }
+        );
+      });
+    };
   this.create = function (nom, description, utilisateur, res) {
+    console.log("//hehhehe/"+utilisateur);
     connection.acquire(function (err, con) {
       con.query(
         "insert into tache (nom, description, date, utilisateur_idutilisateur) values (?,?,?,?) ",

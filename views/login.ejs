@@ -178,7 +178,64 @@ body {
 </style>
 <script>
       
-      
+async function fetchlogin(){
+    const response = await fetch(
+      "http://localhost:8000/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: "test10",
+          password:"12345"
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          'Access-Control-Allow-Origin':'*'
+        },
+        credentials:"same-origin"
+      }
+    );
+
+    const resbis = await response.json();
+    
+    console.log(resbis);
+  ;
+  }
+
+  async function fetchdeconnexion(){
+    const response = await fetch(
+      "https://todolist.krissdeveloppeur.com/deconnexion",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: "test10",
+          password:"12345"
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          'Access-Control-Allow-Origin':'*'
+        },
+      }
+    );
+
+    const resbis = await response.json();
+    
+    console.log(resbis);
+  ;
+  }
+
+  async function fetchverifid(){
+    const response = await fetch(
+      "https://todolist.krissdeveloppeur.com/qui"
+    );
+
+    const resbis = await response.json();
+    
+    console.log(resbis);
+   
+  
+  }
+
+      fetchlogin();
           
       $(document).ready(function(){
 
@@ -240,6 +297,10 @@ $.ajax({
       
 </script>
 <body>
+  <button onclick="fetchdeconnexion()">deco</button>
+  <button onclick="fetchlogin()">log</button>
+  <button onclick="fetchverifid()">cookie</button>
+  <button onclick="test"></button>
     <iframe id="transit" name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
     <div class="login-box">
         <h2>login</h2>
