@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var envoi = require('../projettodo/app/models/todo');
-
+const path = require('path');
 var connection = require('./app/config/connection');
 var routes = require('./app/controllers/routes');
 const todo = require('../projettodo/app/models/todo');
@@ -33,6 +33,16 @@ app.set('view engine', 'ejs')
 
 app.get('', (req, res) => {
   res.render('todo')
+})
+
+app.get('/login.js', (req, res) => {
+  res.sendFile(path.join(__dirname)+'/public/js/login.js')
+})
+app.get('/login', (req, res) => {
+  res.render('login')
+})
+app.get('/test', (req, res) => {
+  res.sendFile(path.join(__dirname)+'/views/index.html')
 })
 
 app.get('/connexion', (req, res) => {

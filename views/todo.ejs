@@ -16,6 +16,7 @@
   </head>
 
   <body>
+    <a href="/login">login</a>
     <form id="tache" method="POST" action="/todo">
       <input placeholder="nom de la tache" id="nom1" name="nom" type="text" />
       <input type="text" placeholder= "description" description"
@@ -77,6 +78,7 @@
       }
       $(document).ready(function () {
         quiestu();
+
         $("#updatetache").hide();
         $("#tache").submit(function (e) {
           form = $(this);

@@ -205,6 +205,7 @@ function Todo() {
     );
     };
   this.create = function (nom, description, utilisateur, res) {
+    console.log("//hehhehe/"+utilisateur);
     connection.acquire(function (err, con) {
       con.query(
         "insert into tache (nom, description, date, utilisateur_idutilisateur) values (?,?,?,?) ",
