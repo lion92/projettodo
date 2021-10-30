@@ -25,5 +25,8 @@ module.exports = {
     app.post('/deconnexion', function(req, res){
       todo.reqdeconnexion(req,res);
     });
+    app.post('/delete', function(req, res){
+      todo.delete(req.body.idtache,req,res);
+    });
   }
 };
