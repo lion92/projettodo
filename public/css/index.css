@@ -17,12 +17,35 @@
     flex-wrap: wrap;
 
 }
+
+
 .container div, .container_tache div{
     margin: 1em;
     padding: 1em;
     font-size: 1em;
     
 }
+.container div{
+    font-family:"Helvetica", sans-serif;
+    font-size:30px;
+    background: #3e3e3e;
+    color: #ffffff;
+   margin: 1em;
+padding: 1em;
+   
+    position: relative;
+    top: 40px;
+    padding: 20px;
+    text-align: center;
+    border-top: 3px solid #ababab;
+    border-bottom: 3px solid #ababab;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.53);
+    -moz-box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.53);
+    -webkit-box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.53);
+  }
 label{
     font-family: sans-serif;
      letter-spacing: 6px;

@@ -1,11 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var envoi = require('../projettodo/app/models/todo');
-const path = require('path');
+
 var connection = require('./app/config/connection');
 var routes = require('./app/controllers/routes');
 const todo = require('../projettodo/app/models/todo');
 const cookieParser=require("cookie-parser");
+const path = require('path');
 var app = express();
 var http=require('http').Server(app);
 var io=require('socket.io')(http);
@@ -32,7 +33,7 @@ app.set('views', './views')
 app.set('view engine', 'ejs')
 
 app.get('', (req, res) => {
-  res.render('todo')
+  res.sendFile(path.join(__dirname)+'/views/index.html')
 })
 app.get('/index.css', (req, res) => {
   res.sendFile(path.join(__dirname)+'/public/css/index.css')
