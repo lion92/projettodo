@@ -1,7 +1,7 @@
 
 node_modules/ws/LICENSE
 *.md
-*.js
+
 *.json
 node_modules/utils-merge/LICENSE
 node_modules/util-deprecate/LICENSE
