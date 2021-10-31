@@ -41,7 +41,9 @@ async function fetchlogin(){
       });
   
   }
-
+  fetchid().then((data)=>{
+    document.getElementById("id").value=data;
+    });
   async function fetchdeconnexion(){
     const response = await fetch(
       "http://localhost:8000/deconnexion",
@@ -192,7 +194,7 @@ async function fetchlogin(){
    });
    document.getElementById("tacheRepertoire").innerHTML=str;
   }
-
+  
   async function fetchid(){
     const response = await fetch(
       "http://localhost:8000/qui",

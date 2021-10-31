@@ -33,6 +33,9 @@ app.set('views', './views')
 app.set('view engine', 'ejs')
 
 app.get('', (req, res) => {
+  res.sendFile(path.join(__dirname)+'/views/login.html')
+})
+app.get('/page', (req, res) => {
   res.sendFile(path.join(__dirname)+'/views/index.html')
 })
 app.get('/index.css', (req, res) => {
@@ -51,11 +54,16 @@ app.get('/test', (req, res) => {
   res.sendFile(path.join(__dirname)+'/views/index.html')
 })
 
-app.get('/connexion', (req, res) => {
-  res.render('connexion')
+app.get('/loginfirst', (req, res) => {
+  res.sendFile(path.join(__dirname)+'/views/login.html')
 })
-app.get('/loginpage', (req, res) => {
-  res.render('login')
+
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname)+'/views/connexion.html')
+})
+app.get('/loginfirst.js', (req, res) => {
+  res.sendFile(path.join(__dirname)+'/public/js/loginfirst.js')
 })
 
 
