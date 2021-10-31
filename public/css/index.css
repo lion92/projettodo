@@ -17,11 +17,11 @@
     flex-wrap: wrap;
 
 }
-.container div{
-    margin: 2em;
-    padding: 2em;
+.container div, .container_tache div{
+    margin: 1em;
+    padding: 1em;
     font-size: 1em;
-    border: 1em solid black;
+    
 }
 label{
     font-family: sans-serif;
