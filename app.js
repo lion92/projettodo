@@ -34,7 +34,9 @@ app.set('view engine', 'ejs')
 app.get('', (req, res) => {
   res.render('todo')
 })
-
+app.get('/index.css', (req, res) => {
+  res.sendFile(path.join(__dirname)+'/public/css/index.css')
+})
 app.get('/login.js', (req, res) => {
   res.sendFile(path.join(__dirname)+'/public/js/login.js')
 })

@@ -5,21 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todolist</title>
+    <link rel="stylesheet" href="http://localhost:8000/index.css">
     
 </head>
-<body>
-    
+<body><div class="container_tache">
+    <div class="container_connect">
     <input id="login" type="text" placeholder="login"/>
     <input id="password" type="text" placeholder="password"/>
+    </div>
+    <div class="container_tache">
     <input disabled="disabled" id="id" type="text" placeholder="iduser"/>
     <input  id="idtache" type="text" placeholder="idtache"/>
     <input id="nom" type="text" placeholder="nom"/>
     <input id="description" type="text" placeholder="description"/>
+</div>
+<div class="container_tache">
+    <button onclick="fetchupdate()">update</button>
     <button onclick="fetchdelete()">delete</button>
     <button onclick="fetchlogin()">login</button>
     <button onclick="fetchdeconnexion()">deco</button>
     <button onclick="fetchtodo()">creer</button>
-  
+</div>
+</div>
     <div  id="tacheRepertoire" class="container"></div>
 </body>
 <script src="http://localhost:8000/login.js"></script>

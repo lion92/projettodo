@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.container_connect, .container_tache{
+    display: flex;
+    align-items: center;
+    
+    flex-wrap: wrap;
+
+}
+.container div{
+    margin: 2em;
+    padding: 2em;
+    font-size: 1em;
+    border: 1em solid black;
+}
+
