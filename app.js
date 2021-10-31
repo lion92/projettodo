@@ -41,6 +41,9 @@ app.get('/index.css', (req, res) => {
 app.get('/login.js', (req, res) => {
   res.sendFile(path.join(__dirname)+'/public/js/login.js')
 })
+app.get('/register.js', (req, res) => {
+  res.sendFile(path.join(__dirname)+'/public/js/register.js')
+})
 app.get('/login', (req, res) => {
   res.render('login')
 })
