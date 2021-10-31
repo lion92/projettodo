@@ -39,6 +39,9 @@ async function fetchlogin(){
      await fetchid().then((data)=>{
       document.getElementById("id").value=data;
       });
+      await fetchutilisateur().then((data)=>{
+        console.log(data);
+        });
   
   }
   fetchid().then((data)=>{
@@ -64,9 +67,12 @@ async function fetchlogin(){
     const resbis = await response.json();
     
     console.log(resbis);
-    fetchid().then((data)=>{
+    await fetchid().then((data)=>{
       document.getElementById("id").value=data;
       });
+      await fetchutilisateur().then((data)=>{
+        console.log(data);
+        });
   }
 
 
