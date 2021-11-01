@@ -4,8 +4,8 @@ function iddetache(e){
 
 function divinfo(e){
   document.getElementById("idtache").value=e.children[0].innerHTML;
-  document.getElementById("nom").value=e.children[1].innerHTML;
-  document.getElementById("description").value=e.children[2].innerHTML;
+  document.getElementById("nom").value=e.children[2].innerHTML;
+  document.getElementById("description").value=e.children[3].innerHTML;
 }
 function nom(e){
   document.getElementById("nom").value=e.innerHTML;
@@ -204,7 +204,7 @@ async function fetchlogin(){
     let str="";
       console.log(resbis);
    resbis.message.forEach(element => {
-     str+="<div onclick='divinfo(this)'><h1 onclick='iddetache(this)'>"+element.idtache+"</h1><h2>"+element.email+"</h2><h2 onclick='nom(this)'>"+element.nom+"</h2><p onclick='description(this)'>"+element.description+"</p><h3 >"+element.date+"</h3></div>"
+     str+="<div onclick='divinfo(this)'><h1 onclick='iddetache(this)'>"+element.idtache+"</h1><h2>"+" email: "+element.email+" nom: "+element.nom+" prenom: "+element.prenom+"</h2><h2 onclick='nom(this)'>"+element.tachenom+"</h2><p onclick='description(this)'>"+element.description+"</p><h3 >"+element.date+"</h3></div>"
      
    });
    document.getElementById("tacheRepertoire").innerHTML=str;
