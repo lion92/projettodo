@@ -37,6 +37,9 @@ async function fetchlogin(){
     
     console.log(resbis);
      await fetchid().then((data)=>{
+      if(isNaN(data)){
+        window.location.href = "http://localhost:8000/loginfirst";
+      }
       document.getElementById("id").value=data;
       });
       await fetchutilisateur().then((data)=>{
@@ -45,6 +48,10 @@ async function fetchlogin(){
   
   }
   fetchid().then((data)=>{
+    console.log(isNaN(data));
+    if(isNaN(data)){
+      window.location.href = "http://localhost:8000/loginfirst";
+    }
     document.getElementById("id").value=data;
     });
   async function fetchdeconnexion(){
@@ -53,8 +60,8 @@ async function fetchlogin(){
       {
         method: "POST",
         body: JSON.stringify({
-          email: "test10",
-          password:"12345"
+          email: document.getElementById("login").value,
+          password: document.getElementById("password").value
         }),
         credentials: 'include',
         headers: {
@@ -97,7 +104,8 @@ async function fetchlogin(){
     const resbis = await response.json();
     console.log(resbis);
 
-    fetchid().then((data)=>{
+    await fetchid().then((data)=>{
+     
       document.getElementById("id").value=data;
       });
       await fetchutilisateur().then((data)=>{
@@ -166,6 +174,7 @@ async function fetchlogin(){
     
     console.log(resbis);
     fetchid().then((data)=>{
+      
       document.getElementById("id").value=data;
       });
       await fetchutilisateur().then((data)=>{
@@ -195,7 +204,7 @@ async function fetchlogin(){
     let str="";
       console.log(resbis);
    resbis.message.forEach(element => {
-     str+="<div onclick='divinfo(this)'><h1 onclick='iddetache(this)'>"+element.idtache+"</h1><h2 onclick='nom(this)'>"+element.nom+"</h2><p onclick='description(this)'>"+element.description+"</p><h3 >"+element.date+"</h3></div>"
+     str+="<div onclick='divinfo(this)'><h1 onclick='iddetache(this)'>"+element.idtache+"</h1><h2>"+element.email+"</h2><h2 onclick='nom(this)'>"+element.nom+"</h2><p onclick='description(this)'>"+element.description+"</p><h3 >"+element.date+"</h3></div>"
      
    });
    document.getElementById("tacheRepertoire").innerHTML=str;

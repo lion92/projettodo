@@ -18,6 +18,12 @@
 
 }
 
+#tacheRepertoire{
+  overflow-y: scroll;
+overflow-x: hidden;
+max-height: 450px;
+}
+
 
 .container div, .container_tache div{
     margin: 1em;

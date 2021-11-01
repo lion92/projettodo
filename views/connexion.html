@@ -193,7 +193,7 @@
 
 
 <body>
-    <iframe id="transit" name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+
     <div class="login-box">
         <h2>register</h2>
         <form method="POST">
@@ -201,9 +201,9 @@
                 <input id="email" type="text" placeholder="email" name="email" required="">
                 <label>email</label>
                 <input id="prenom" type="text" placeholder="prenom" name="prenom" required="">
-                <label>prenom</label>
+                
                 <input id="nom" type="text" placeholder="nom" name="nom" required="">
-                <label>nom</label>
+                
             </div>
             <div class="user-box">
                 <input id="password" type="password" placeholder="password" name="password" required="">
@@ -212,12 +212,8 @@
                 
             </div>
 
-            <h2>deconnexion</h2>
-            <form id="deconnexion" action="/deconnexion" method="POST">
-
-                <input type="submit" value="deconnecter">
-                <a href="/loginpage">login</a>
-            </form>
+          
+           
             <a href="http://localhost:8000/loginfirst">login</a>
         </div>
     </div>

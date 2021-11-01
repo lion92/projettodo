@@ -290,7 +290,7 @@ function Todo() {
   this.getTodo = function (idutilisateur, res) {
     connection.acquire(function (err, con) {
       con.query(
-        "select * from tache  where utilisateur_idutilisateur=? ",
+        "select * from tache INNER join utilisateur on tache.utilisateur_idutilisateur=utilisateur.idutilisateur where utilisateur_idutilisateur=? ",
         idutilisateur,
         function (err, result) {
           con.release();

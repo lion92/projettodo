@@ -22,7 +22,7 @@ async function fetchlogin(){
       
       console.log(resbis);
       console.log(resbis.message.includes("Connecté"));
-      if(resbis.message.includes("Connecté")){
+      if(resbis.message.includes("Connecté")||resbis.message.includes("Connecte")){
         window.location.href = "http://localhost:8000/page";}
     
     }
