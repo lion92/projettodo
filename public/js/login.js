@@ -237,6 +237,34 @@ async function fetchlogin(){
     }
  
   }
+
+ async function envoimail() {
+    await fetchid().then((data)=>{
+      if(isNaN(data)){
+        alert("Veuillez vous connecter!")
+      }else{
+     
+      fetch("/envoi/mail", {
+        method: "POST",
+        body: JSON.stringify({
+          texte: document.getElementById("description").value,
+          mail: document.getElementById("nom").value,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((resp) => {
+        resp.json().then((data) => {
+          alert("Envoyer");
+        });
+      });
+    } 
+  })
+}
+  function validMail(mail)
+  {
+      return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(mail);
+  }
  
 
   //fetchlogin();

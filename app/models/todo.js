@@ -287,6 +287,45 @@ function Todo() {
       );
     });
   };
+  this.envoimail = function (texte,mail, req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+          res.header(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+    
+          );
+          var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: "clotikriss@gmail.com",
+              pass: "Tutorama2",
+            },
+            tls: {
+              rejectUnauthorized: false,
+            },
+          });
+
+          var mailOptions = {
+            from: "clotikriss@gmail.com",
+            to: "kriss.clotilde@gmail.com",
+            subject:
+              "Mail du site de :"+mail,
+            text: ""+texte,
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+              res.send({sataus:"ko", message:error})
+            } else {
+              console.log("Email sent: " + info.response);
+              res.send({sataus:"ok", message:info.response})
+            }
+          });
+          
+
+  }
+      
   this.getTodo = function (idutilisateur, res) {
     connection.acquire(function (err, con) {
       con.query(

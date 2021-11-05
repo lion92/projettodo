@@ -28,5 +28,8 @@ module.exports = {
     app.post('/delete', function(req, res){
       todo.delete(req.body.idtache,req,res);
     });
+    app.post('/envoi/mail',function(req,res) {
+      todo.envoimail(req.body.texte,req.body.mail,req,res);
+    });
   }
 };
