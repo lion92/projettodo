@@ -202,12 +202,16 @@ async function fetchlogin(){
     const resbis = await response.json();
    
     let str="";
+    let str2="";
       console.log(resbis);
    resbis.message.forEach(element => {
+     console.log(element);
      str+="<div onclick='divinfo(this)'><h1 onclick='iddetache(this)'>"+element.idtache+"</h1><h2>"+" email: "+element.email+" nom: "+element.nom+" prenom: "+element.prenom+"</h2><h2 onclick='nom(this)'>"+element.tachenom+"</h2><p onclick='description(this)'>"+element.description+"</p><h3 >"+element.date+"</h3></div>"
-     
+     str2+="   <tr><td data-column='Id'>"+element.idtache+"</td><td data-column='Email'>"+element.email+"</td><td data-column='Nom'>"+element.nom+"</td></td><td data-column='Prenom'>"+element.prenom+"</td></td><td data-column='TacheNom'>"+element.tachenom+"</td></td><td data-column='Description'>"+element.description+"</td></td><td data-column='Date'>"+element.date+"</td>"+"<td>"+"<div onclick='divinfo(this)'><h1 onclick='iddetache(this)'>"+element.idtache+"</h1></br><h2>"+" email: "+element.email+"</br> nom: "+element.nom+" </br> prenom: "+element.prenom+"</h2></br><h2 onclick='nom(this)'>"+element.tachenom+"</h2><p onclick='description(this)'>"+element.description+"</p></br><h3 >"+element.date+"</h3></br></div>"+"</td></tr>"
    });
-   document.getElementById("tacheRepertoire").innerHTML=str;
+  
+
+   document.getElementById("takeTache").innerHTML=str2;
   }
   
   async function fetchid(){

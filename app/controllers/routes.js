@@ -15,6 +15,11 @@ module.exports = {
     app.post('/updatetache',function(req,res) {
       todo.updatetache(req.body.nom, req.body.description,req.body.idutilisateur,req.body.idtache,res);
     });
+
+    app.post('/addcategorie',function(req,res) {
+      todo.addcategorie(req.body.nom,req,res);
+    });
+
     app.post('/register', (req, res) =>{
       todo.reqgister(req.body.nom, req.body.prenom,req.body.email,req.body.password,req, res);
    

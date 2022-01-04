@@ -31,10 +31,10 @@
         />
       </div>
       <div class="container_tache but1">
-          <div>
+        <div>
           <button onclick="fetchlogin()">login</button>
           <button onclick="fetchdeconnexion()">deco</button>
-        </div>  
+        </div>
         <div class="but2">
           <button onclick="envoimail()">EnvoiParMail</button>
           <button onclick="fetchupdate()">update</button>
@@ -43,10 +43,31 @@
           <button onclick="fetchtodo()">creer</button>
         </div>
 
-    
       </div>
     </div>
-    <div id="tacheRepertoire" class="container"></div>
+    
+    <div class="conatiner">
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Tache Nom</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody id="takeTache">
+       
+        </tbody>
+      </table>
+    </div>
+    <div id="tacheRepertoire" class="container">
+      
+    </div>
   </body>
   <script src="http://localhost:8000/login.js"></script>
 </html>
